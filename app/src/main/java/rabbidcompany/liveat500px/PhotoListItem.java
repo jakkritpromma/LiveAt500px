@@ -20,7 +20,7 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
  */
 public class PhotoListItem extends BaseCustomViewGroup {
 
-    FrameLayout frameLayoutRef01 =  (FrameLayout) findViewById(R.id.ContentContainerID01);
+    FrameLayout frameLayoutRef01 = (FrameLayout) findViewById(R.id.ContentContainerID01);
 
     public PhotoListItem(Context context) {
         super(context);
@@ -64,7 +64,6 @@ public class PhotoListItem extends BaseCustomViewGroup {
                 attrs,
                 R.styleable.StyleableName,
                 defStyleAttr, defStyleRes);
-
         try {
 
         } finally {
@@ -109,12 +108,6 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = 838;
-        //int width = MeasureSpec.getSize(widthMeasureSpec);
-        //int height = width/3*2;
-        /*
-        Toast.makeText(getContext(),"Width: " + MeasureSpec.getSize(widthMeasureSpec) +
-
-                "Height: " + MeasureSpec.getSize(heightMeasureSpec), Toast.LENGTH_SHORT).show();
 
         //Make a new spec.
         int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
@@ -123,20 +116,6 @@ public class PhotoListItem extends BaseCustomViewGroup {
         super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
 
         //Apply to itself, but the following code seems unnecessary.
-        setMeasuredDimension(width, height);
-
-        Context context = getContext();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-
-        Toast.makeText(getContext(), "WidthD: " + display.getWidth() +
-                "HeightD: " + display.getHeight() + "\n" +
-                "WidthM: " + MeasureSpec.getSize(widthMeasureSpec)
-                , Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "FramelayoutHeight: " + toolBar01, Toast.LENGTH_SHORT).show();
-`*/
-        int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
         setMeasuredDimension(width, height);
     }
 }

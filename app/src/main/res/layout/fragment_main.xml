@@ -4,10 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <ListView
         android:id="@+id/ListViewID01"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
 
+    <!--Try GridView by myself.
+        <GridView
+            android:id="@+id/GridViewID01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"></GridView> -->
 
 </LinearLayout>
