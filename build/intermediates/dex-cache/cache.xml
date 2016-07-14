@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.crashlytics.sdk.android\crashlytics-core\2.3.10\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2f9a9b21b70965cde70f6eb8f2ee68794fb482e6">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.crashlytics.sdk.android-crashlytics-core-2.3.10_a3772a47581d0312c5b80b485b50b5b8ef529faa\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="fe4f2c47b4cc8c2f13aeb7c0860e0a55a14ecfd8">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ab5ebc8c8bff237c1ae81aa371f0597f81f50b19\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_a27f3d2729d0d11933ff2261ffac33802e8d0ec9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_d5a013a88787ad70e1fe13bf41df076d60897229\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.crashlytics.sdk.android\beta\1.2.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="35584aa0ef1d87109a997cfed2662801f304a3c0">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.crashlytics.sdk.android-beta-1.2.0_c0da71830239af209df7bc653a326d0299f2e81e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_96d440b0d7253bce4d6deba8df2c086f3e514e9c\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ba5362d0c55aa358a5522d6bb175713423a6268c">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_4a7a0fbf3c1bdfc48a3e609819aa0215338f2968\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.crashlytics.sdk.android\answers\1.3.8\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0c46a5a897439810b6c437ce188bd07d9d8dffb0">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.crashlytics.sdk.android-answers-1.3.8_5ccbfcdb16b269f2f41efa609851b631fe717280\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_7ed87bc49904d4321db9a5c24c80f8cc5dbc87d2\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.crashlytics.sdk.android\crashlytics\2.6.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="32246804c761c812b32f01ea7ec7343622d0d91c">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.crashlytics.sdk.android-crashlytics-2.6.0_efdbca324e7f9bf9750f838f8ddaccd7a100772b\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_36c8308138335356026d293ed7cdc273c191769e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\.gradle\caches\modules-2\files-2.1\com.squareup\otto\1.3.8\cf615176cd1177edf71d3c9605f8dc148fede6be\otto-1.3.8.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="cf615176cd1177edf71d3c9605f8dc148fede6be">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\otto-1.3.8_db4f7e17fc20cbeebb6ee741e5548ffc66dc7665\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_78f2af16d135860a316f800ec5afae3282f84696\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\com.inthecheesefactory.thecheeselibrary\adjustable-imageview\1.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="6f4877a9f0a653e193bfb600379e4bfc8472be47">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.inthecheesefactory.thecheeselibrary-adjustable-imageview-1.0.0_b976bbd0d27c128152156ce132ed80d9c6e551d9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\exploded-aar\io.fabric.sdk.android\fabric\1.3.12\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3575e73a22dce98f0bdbcdb475ef55a84606a9a6">
+        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.fabric.sdk.android-fabric-1.3.12_917cca5707d9b79b34d0da508b8b608bbacbddfc\classes.dex" />
+    </item>
+
+</items>

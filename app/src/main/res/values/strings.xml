@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Live @ 500px</string>
+    <string name="sample_button">Sample Button</string>
+    <string name="open_drawer">Open Menu</string>
+    <string name="close_drawer">Close Menu</string>
+    <string name="name_name">Name Name Name Name Name Name Name Name Name Name Name</string>
+    <string name="description_description">Description Description Description
+    Description Description Description Description Description Description</string>
+</resources>
