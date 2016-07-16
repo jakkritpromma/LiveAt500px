@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2" />
 
-    <item
-        jar="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="291da22a4d9efe8fa7272ff1d2d9621b41a25b77">
-        <dex dex="C:\Users\noneemotion\Desktop\LiveAt500px\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_ab5ebc8c8bff237c1ae81aa371f0597f81f50b19\classes.dex" />
-    </item>
-
-</items>

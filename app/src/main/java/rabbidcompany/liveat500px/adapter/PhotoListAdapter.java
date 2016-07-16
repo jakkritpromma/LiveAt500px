@@ -6,15 +6,27 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import rabbidcompany.liveat500px.PhotoListItem;
+import rabbidcompany.liveat500px.manager.PhotoListManager;
 
 /**
  * Created by noneemotion on 13/7/2559.
  */
+
+//An adapter (extended from BaseAdapter) cooperating with the listView
 public class PhotoListAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         //return 0;
-        return 10000; //This is for fun.
+        //return 10000; //This is for fun.
+        if (PhotoListManager.getInstance().getDao() == null) {
+            return 0;
+        }
+        else if(PhotoListManager.getInstance().getDao().getData() == null){
+            return 0;
+        }
+        else {
+            return PhotoListManager.getInstance().getDao().getData().size();
+        }
     }
 
     @Override
@@ -39,8 +51,6 @@ public class PhotoListAdapter extends BaseAdapter {
         return position % 2 == 0 ? 0 : 1; //Return the control number of each View type.
     }
 
-    //getView feeds views to the ListView in the fragment.
-    //convertView is a created and unused convertView(s).
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -73,6 +83,8 @@ public class PhotoListAdapter extends BaseAdapter {
     }
     */
 
+    //getView feeds views to the ListView in the fragment.
+    //convertView is a created and unused convertView(s).
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         PhotoListItem item;

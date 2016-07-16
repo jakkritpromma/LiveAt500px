@@ -9,12 +9,15 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+
 import java.io.IOException;
 
 import rabbidcompany.liveat500px.R;
 import rabbidcompany.liveat500px.activity.MainActivity;
 import rabbidcompany.liveat500px.adapter.PhotoListAdapter;
 import rabbidcompany.liveat500px.dao.PhotoItemCollectionDao;
+import rabbidcompany.liveat500px.manager.PhotoListManager;
 import rabbidcompany.liveat500px.manager.http.HttpManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,10 +65,11 @@ public class MainFragment extends Fragment {
         Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
 
         //This synchronous method is not allowed. It uses the main thread.
-        //It waits or blocks further executions. It will throw to NetworkonMAinThrowException.
+        //It waits or blocks further executions. It will throw to NetworkonMainThrowException.
         //call.execute()
 
         //Use an asynchronous one instead. This won't block anything.
+        // However, it must not be used with an Activity.
         call.enqueue(new Callback<PhotoItemCollectionDao>() {
             //Load data here
             @Override
@@ -73,13 +77,21 @@ public class MainFragment extends Fragment {
                                    Response<PhotoItemCollectionDao> response) {
                 if (response.isSuccessful()) {
                     PhotoItemCollectionDao dao = response.body();
-                    Toast.makeText(getActivity(),
+
+                    //Store data into a singleton PhotoListManager.
+                    PhotoListManager.getInstance().setDao(dao);
+
+                    //Refresh the list view.
+                    listAdapter01.notifyDataSetChanged();
+
+                    //Toast.makeText(getActivity(),
+                    Toast.makeText(Contextor.getInstance().getContext(),
                             dao.getData().get(0).getCaption(),
                             Toast.LENGTH_LONG)
                             .show();
                 } else {
                     try {
-                        Toast.makeText(getActivity(),
+                        Toast.makeText(Contextor.getInstance().getContext(),
                                 response.errorBody().string(),
                                 Toast.LENGTH_LONG)
                                 .show();
@@ -93,7 +105,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onFailure(Call<PhotoItemCollectionDao> call,
                                   Throwable t) {
-               Toast.makeText(getActivity(),
+               Toast.makeText(Contextor.getInstance().getContext(),
                         t.toString(),
                         Toast.LENGTH_LONG)
                         .show();

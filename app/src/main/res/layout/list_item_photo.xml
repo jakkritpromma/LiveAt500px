@@ -20,7 +20,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/TextViewID01"
+            android:id="@+id/TextViewNameID01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -30,7 +30,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/TextViewID02"
+            android:id="@+id/TextViewDescriptionID01"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"

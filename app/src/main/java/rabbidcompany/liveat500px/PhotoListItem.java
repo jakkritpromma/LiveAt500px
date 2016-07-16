@@ -10,6 +10,8 @@ import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
@@ -20,7 +22,10 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
  */
 public class PhotoListItem extends BaseCustomViewGroup {
 
-    FrameLayout frameLayoutRef01 = (FrameLayout) findViewById(R.id.ContentContainerID01);
+    ImageView imageView01;
+    TextView textViewName01;
+    TextView textViewDes01;
+    //FrameLayout frameLayoutRef01;
 
     public PhotoListItem(Context context) {
         super(context);
@@ -56,6 +61,10 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        imageView01 = (ImageView) findViewById(R.id.ImageViewID01);
+        textViewName01 = (TextView) findViewById(R.id.TextViewNameID01);
+        textViewDes01 = (TextView) findViewById(R.id.TextViewDescriptionID01);
+        //frameLayoutRef01 = (FrameLayout) findViewById(R.id.ContentContainerID01);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -117,5 +126,17 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
         //Apply to itself, but the following code seems unnecessary.
         setMeasuredDimension(width, height);
+    }
+
+    public void setImageUrl(String url) {
+        //TODO: Load an image.
+    }
+
+    public void setNameText(String text) {
+        textViewName01.setText(text);
+    }
+
+    public void setDescriptionText(String text) {
+        textViewDes01.setText(text);
     }
 }
