@@ -10,6 +10,8 @@ import android.view.Display;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
@@ -20,7 +22,10 @@ import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
  */
 public class PhotoListItem extends BaseCustomViewGroup {
 
-    FrameLayout frameLayoutRef01 =  (FrameLayout) findViewById(R.id.ContentContainerID01);
+    ImageView imageView01;
+    TextView textViewName01;
+    TextView textViewDes01;
+    //FrameLayout frameLayoutRef01;
 
     public PhotoListItem(Context context) {
         super(context);
@@ -56,6 +61,10 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        imageView01 = (ImageView) findViewById(R.id.ImageViewID01);
+        textViewName01 = (TextView) findViewById(R.id.TextViewNameID01);
+        textViewDes01 = (TextView) findViewById(R.id.TextViewDescriptionID01);
+        //frameLayoutRef01 = (FrameLayout) findViewById(R.id.ContentContainerID01);
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -64,7 +73,6 @@ public class PhotoListItem extends BaseCustomViewGroup {
                 attrs,
                 R.styleable.StyleableName,
                 defStyleAttr, defStyleRes);
-
         try {
 
         } finally {
@@ -109,12 +117,6 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = 838;
-        //int width = MeasureSpec.getSize(widthMeasureSpec);
-        //int height = width/3*2;
-        /*
-        Toast.makeText(getContext(),"Width: " + MeasureSpec.getSize(widthMeasureSpec) +
-
-                "Height: " + MeasureSpec.getSize(heightMeasureSpec), Toast.LENGTH_SHORT).show();
 
         //Make a new spec.
         int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
@@ -124,19 +126,17 @@ public class PhotoListItem extends BaseCustomViewGroup {
 
         //Apply to itself, but the following code seems unnecessary.
         setMeasuredDimension(width, height);
+    }
 
-        Context context = getContext();
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
+    public void setImageUrl(String url) {
+        //TODO: Load an image.
+    }
 
-        Toast.makeText(getContext(), "WidthD: " + display.getWidth() +
-                "HeightD: " + display.getHeight() + "\n" +
-                "WidthM: " + MeasureSpec.getSize(widthMeasureSpec)
-                , Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "FramelayoutHeight: " + toolBar01, Toast.LENGTH_SHORT).show();
-`*/
-        int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
-        setMeasuredDimension(width, height);
+    public void setNameText(String text) {
+        textViewName01.setText(text);
+    }
+
+    public void setDescriptionText(String text) {
+        textViewDes01.setText(text);
     }
 }
