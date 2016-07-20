@@ -17,10 +17,16 @@ public class MainApplication extends Application {
         Fabric.with(this, new Crashlytics());
         //Initialize things here.
         Contextor.getInstance().init(getApplicationContext());
+
+        //You can load the dao in the persistent storage here.
+        //Code here...
     }
 
     @Override
     public void onTerminate() {
         super.onTerminate();
+
+        //You can save the dao in the persistent storage here.
+        //Code here...
     }
 }

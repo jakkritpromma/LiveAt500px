@@ -12,7 +12,4 @@ public interface ApiService {
     //http://nuuneoi.com/courses/500px/list
     @POST("list")
     Call<PhotoItemCollectionDao> loadPhotoList(); //Declare a method's name. <Object> is generic.
-
-    //Convert string tp DAO (Data Access Object)
-
 }

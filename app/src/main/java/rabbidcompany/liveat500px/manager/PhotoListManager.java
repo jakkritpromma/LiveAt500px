@@ -24,6 +24,9 @@ public class PhotoListManager {
 
     private PhotoListManager() {
         mContext = Contextor.getInstance().getContext();
+
+        //Load the dao from the persistent storage here.
+        //Code here...
     }
 
     public PhotoItemCollectionDao getDao() {
@@ -32,5 +35,8 @@ public class PhotoListManager {
 
     public void setDao(PhotoItemCollectionDao dao) {
         this.dao = dao;
+
+        //You can save the dao in the persistent storage here.
+        //Code here...
     }
 }
