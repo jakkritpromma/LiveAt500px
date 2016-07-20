@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class PhotoItemCollectionDao {
     @SerializedName("success")  private boolean success;
-    @SerializedName("data")     private List<PhotoItemDao> data;
+    @SerializedName("data")     private List<PhotoItemDao> data; //The smaller units are in a list.
 
     public boolean isSuccess() {
         return success;

@@ -2,10 +2,15 @@ package rabbidcompany.liveat500px.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import rabbidcompany.liveat500px.PhotoListItem;
+import rabbidcompany.liveat500px.R;
+import rabbidcompany.liveat500px.dao.PhotoItemCollectionDao;
+import rabbidcompany.liveat500px.dao.PhotoItemDao;
 import rabbidcompany.liveat500px.manager.PhotoListManager;
 
 /**
@@ -14,10 +19,21 @@ import rabbidcompany.liveat500px.manager.PhotoListManager;
 
 //An adapter (extended from BaseAdapter) cooperating with the listView
 public class PhotoListAdapter extends BaseAdapter {
+
+    PhotoItemCollectionDao dao; //Do not use a singleton dao anymore.
+    int lastPosition = -1;
+
+    public void setDao(PhotoItemCollectionDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public int getCount() {
         //return 0;
         //return 10000; //This is for fun.
+
+        //These cases use singleton daos.
+        /*
         if (PhotoListManager.getInstance().getDao() == null) {
             return 0;
         }
@@ -26,12 +42,22 @@ public class PhotoListAdapter extends BaseAdapter {
         }
         else {
             return PhotoListManager.getInstance().getDao().getData().size();
+        }*/
+
+
+        if (dao == null) {
+            return 0;
+        } else if (dao.getData() == null) {
+            return 0;
+        } else {
+            return dao.getData().size();
         }
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        //return null;
+        return dao.getData().get(position);
     }
 
     @Override
@@ -88,12 +114,31 @@ public class PhotoListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         PhotoListItem item;
+
         if (convertView != null) {
             item = (PhotoListItem) convertView;
         } else {
             item = new PhotoListItem(parent.getContext());
         }
+
+        //A data access object referred to the given position of the item, not the collection
+        PhotoItemDao dao = (PhotoItemDao) getItem(position);
+        item.setNameText(dao.getCaption());
+        item.setDescriptionText(dao.getUserName() + "\n" + dao.getCamera());
+        item.setImageUrl(dao.getImageUrl());
+
+        //Translate the view up or down.
+        if (position > lastPosition) {
+            Animation anim = AnimationUtils.loadAnimation(parent.getContext(), R.anim.up_from_button);
+            item.startAnimation(anim);
+        } else {
+            Animation anim_down = AnimationUtils.loadAnimation(parent.getContext(), R.anim.down_from_above);
+            item.startAnimation(anim_down);
+        }
+        lastPosition = position;
+
         //return null;
         return item;
     }
+
 }

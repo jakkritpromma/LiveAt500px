@@ -78,8 +78,10 @@ public class MainFragment extends Fragment {
                 if (response.isSuccessful()) {
                     PhotoItemCollectionDao dao = response.body();
 
-                    //Store data into a singleton PhotoListManager.
-                    PhotoListManager.getInstance().setDao(dao);
+                    //Old case: store data into a singleton PhotoListManager.
+                    //PhotoListManager.getInstance().setDao(dao);
+                    //New case: store data into this fragment.
+                    listAdapter01.setDao(dao);
 
                     //Refresh the list view.
                     listAdapter01.notifyDataSetChanged();

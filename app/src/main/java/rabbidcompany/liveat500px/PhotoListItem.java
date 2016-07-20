@@ -14,8 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Created by nuuneoi on 11/16/2014.
@@ -104,7 +108,7 @@ public class PhotoListItem extends BaseCustomViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        /* //The following codes must be put in somewhere else.
+        /* //The following codes (finding the FrameLayout's spec) must be put in somewhere else.
         FrameLayout frameLayoutRef01 = (FrameLayout) findViewById(R.id.ContentContainerID01);
         ViewTreeObserver vto = frameLayoutRef01.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -129,7 +133,14 @@ public class PhotoListItem extends BaseCustomViewGroup {
     }
 
     public void setImageUrl(String url) {
-        //TODO: Load an image.
+        Glide.with(getContext())  //Glide
+                .load(url)
+                .placeholder(R.drawable.loading)  //Default image without loading any new image.
+                //.error()        //The image for a loading error.
+                //.transform()    //Transform an image
+                //.bitmapTransform(new BlurTransformation(getContext()))
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //Use .ALL because more than one image size maybe used.
+                .into(imageView01);
     }
 
     public void setNameText(String text) {
