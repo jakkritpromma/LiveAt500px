@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import rabbidcompany.liveat500px.PhotoListItem;
@@ -44,13 +45,14 @@ public class PhotoListAdapter extends BaseAdapter {
             return PhotoListManager.getInstance().getDao().getData().size();
         }*/
 
-
         if (dao == null) {
-            return 0;
+            //return 0;
+            return 1; //Save a position for the progressbar.
         } else if (dao.getData() == null) {
-            return 0;
+            //return 0;
+            return 1;
         } else {
-            return dao.getData().size();
+            return dao.getData().size() + 1;
         }
     }
 
@@ -66,9 +68,14 @@ public class PhotoListAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position == getCount() - 1 ? 1 : 0;
+    }
+
+    @Override
     public int getViewTypeCount() {
         //return super.getViewTypeCount();
-        return 2; //Return the maximum number of View types.
+        return 2; //Return the maximum number of View types (i.e. Photolistitem and Progress Bar)
     }
 /*
     @Override
@@ -113,6 +120,18 @@ public class PhotoListAdapter extends BaseAdapter {
     //convertView is a created and unused convertView(s).
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        if(position == getCount() -1){
+            //Progress Bar
+            ProgressBar item;
+            if(convertView != null){
+                item = (ProgressBar) convertView;
+            }
+            else{
+                item = new ProgressBar(parent.getContext());
+            }
+            return item;
+        }
+
         PhotoListItem item;
 
         if (convertView != null) {
@@ -128,6 +147,7 @@ public class PhotoListAdapter extends BaseAdapter {
         item.setImageUrl(dao.getImageUrl());
 
         //Translate the view up or down.
+        /*
         if (position > lastPosition) {
             Animation anim = AnimationUtils.loadAnimation(parent.getContext(), R.anim.up_from_button);
             item.startAnimation(anim);
@@ -135,10 +155,20 @@ public class PhotoListAdapter extends BaseAdapter {
             Animation anim_down = AnimationUtils.loadAnimation(parent.getContext(), R.anim.down_from_above);
             item.startAnimation(anim_down);
         }
-        lastPosition = position;
+        lastPosition = position;*/
+
+        if(position > lastPosition){
+            Animation anim = AnimationUtils.loadAnimation(parent.getContext(), R.anim.up_from_button);
+            item.startAnimation(anim);
+            lastPosition = position;
+        }
 
         //return null;
         return item;
+    }
+
+    public void increaseLastPosition (int amount){
+        lastPosition += amount;
     }
 
 }
