@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <ListView
-        android:id="@+id/ListViewID01"
+    <!-- Pull to refresh. -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayoutID01"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/ListViewID01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <!--Try GridView by myself.
         <GridView
@@ -17,4 +23,16 @@
             android:layout_height="match_parent"
             android:numColumns="3"></GridView> -->
 
-</LinearLayout>
+    <Button
+        android:id="@+id/ButtonNewPhotosID01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/new_photos"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/selector_round_rect_button_blue"
+        android:visibility="gone"/>
+
+</RelativeLayout>

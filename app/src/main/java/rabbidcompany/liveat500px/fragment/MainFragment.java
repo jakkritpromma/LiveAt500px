@@ -2,9 +2,15 @@ package rabbidcompany.liveat500px.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +37,10 @@ public class MainFragment extends Fragment {
     ListView listView01; //This is similar to ScrollView, but it saves memory.
     //GridView gridView01;
     PhotoListAdapter listAdapter01; //This is an adapter.
+    Button buttonNewPhotos01;
+    SwipeRefreshLayout swipeRefreshLayout01;
+    PhotoListManager photoListManager;
+    boolean isLoadingMore = false;
 
     public MainFragment() {
         super();
@@ -51,16 +61,164 @@ public class MainFragment extends Fragment {
     }
 
     private void initInstances(View rootView) {
+        photoListManager = new PhotoListManager();
+        buttonNewPhotos01 = (Button) rootView.findViewById(R.id.ButtonNewPhotosID01);
+        buttonNewPhotos01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideButtonNewPhotos();
+                listView01.smoothScrollToPosition(0);
+            }
+        });
+
         // Init 'View' instance(s) with rootView.findViewById here
         listView01 = (ListView) rootView.findViewById(R.id.ListViewID01);
         listAdapter01 = new PhotoListAdapter();
         listView01.setAdapter(listAdapter01); //Bind the view and adapter together.
-
-        /*
+         /*
         gridView01 = (GridView) rootView.findViewById(R.id.GridViewID01);
         listAdapter01 = new PhotoListAdapter();
         gridView01.setAdapter(listAdapter01);*/
 
+        swipeRefreshLayout01 = (SwipeRefreshLayout) rootView.findViewById(R.id.SwipeRefreshLayoutID01);
+
+        //Handle the pull to refresh.
+        swipeRefreshLayout01.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
+
+        //While scrolling the view
+        listView01.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view,
+                                 int firstVisibleItem,
+                                 int visibleItemCount,
+                                 int totalItemCount) {
+                //Swipe only at Position 0.
+                swipeRefreshLayout01.setEnabled(firstVisibleItem == 0);
+
+                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
+                    if (photoListManager.getCount() > 0) { //Prevent the case of no item.
+                        //Load more
+                        //Log.d("LISTVIEW", "Load more triggered");
+                        loadMoreData();
+                    }
+                }
+            }
+        });
+
+        //This is the case of firstly opening the application.
+        refreshData();
+    }
+
+    private void refreshData() {
+        if (photoListManager.getCount() == 0) {
+            reloadData();
+        } else {
+            reloadDataNewer();
+        }
+    }
+
+    class PhotoListLoadCallBack implements Callback<PhotoItemCollectionDao> {
+
+        public static final int MODE_RELOAD = 1;
+        public static final int MODE_RELOAD_NEWER = 2;
+        public static final int MODE_LOAD_MORE = 3;
+        int mode;
+
+        public PhotoListLoadCallBack(int mode) {
+            this.mode = mode;
+        }
+
+        @Override
+        public void onResponse(Call<PhotoItemCollectionDao> call, Response<PhotoItemCollectionDao> response) {
+            swipeRefreshLayout01.setRefreshing(false); //Stop the pull to refresh here. #1
+
+            if (response.isSuccessful()) {
+                PhotoItemCollectionDao dao = response.body();
+
+                int firstVisiblePosition = listView01.getFirstVisiblePosition();
+                View c = listView01.getChildAt(0); //Get a view at the position 0.
+                int top = c == null ? 0 : c.getTop();
+
+                if (mode == MODE_RELOAD_NEWER) {
+                    //photoListManager.setDao(dao);
+                    photoListManager.insertDaoAtTopPosition(dao);
+                } else if (mode == MODE_RELOAD) {
+                    photoListManager.setDao(dao);
+                } else if (mode == MODE_LOAD_MORE) {
+                    photoListManager.appendDaoAtBottomPosition(dao);
+                    isLoadingMore = false; //Loading more data is done.
+                }
+
+                //listAdapter01.setDao(dao);
+                listAdapter01.setDao(photoListManager.getDao()); //Only the updated data
+                listAdapter01.notifyDataSetChanged();
+
+                if (mode == MODE_RELOAD_NEWER) {
+                    //Maintain the scroll position.
+                    int additionalSize = (dao != null && dao.getData() != null) ? dao.getData().size() : 0;
+                    listAdapter01.increaseLastPosition(additionalSize);
+                    listView01.setSelectionFromTop(firstVisiblePosition + additionalSize, top);
+
+                    if (additionalSize > 0) {
+                        showButtonNewPhotos();
+                    }
+                } else {
+
+                }
+
+                //Use Load Complete for the case of null
+                Toast.makeText(Contextor.getInstance().getContext(),
+                        "Load Completed",
+                        Toast.LENGTH_LONG)
+                        .show();
+            } else {//onResponse is fail
+                if(mode == MODE_LOAD_MORE){
+                    isLoadingMore = false;
+                }
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext(),
+                            response.errorBody().string(),
+                            Toast.LENGTH_LONG)
+                            .show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<PhotoItemCollectionDao> call, Throwable t) {
+            if(mode == MODE_LOAD_MORE){
+                isLoadingMore = false;
+            }
+            swipeRefreshLayout01.setRefreshing(false); //Stop the pull to refresh here. #2
+            Toast.makeText(Contextor.getInstance().getContext(),
+                    t.toString(),
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    private void reloadDataNewer() {
+        int maxId = photoListManager.getMaximumId();
+        Call<PhotoItemCollectionDao> call = HttpManager
+                .getInstance()
+                .getService()
+                .loadPhotoListAfterId(maxId);
+        call.enqueue(new PhotoListLoadCallBack(PhotoListLoadCallBack.MODE_RELOAD_NEWER));
+    }
+
+    private void reloadData() {
         //Call a service singleton object
         Call<PhotoItemCollectionDao> call = HttpManager.getInstance().getService().loadPhotoList();
 
@@ -69,50 +227,21 @@ public class MainFragment extends Fragment {
         //call.execute()
 
         //Use an asynchronous one instead. This won't block anything.
-        // However, it must not be used with an Activity.
-        call.enqueue(new Callback<PhotoItemCollectionDao>() {
-            //Load data here
-            @Override
-            public void onResponse(Call<PhotoItemCollectionDao> call,
-                                   Response<PhotoItemCollectionDao> response) {
-                if (response.isSuccessful()) {
-                    PhotoItemCollectionDao dao = response.body();
+        //However, it must not be used with an Activity.
+        call.enqueue(new PhotoListLoadCallBack(PhotoListLoadCallBack.MODE_RELOAD));
+    }
 
-                    //Old case: store data into a singleton PhotoListManager.
-                    //PhotoListManager.getInstance().setDao(dao);
-                    //New case: store data into this fragment.
-                    listAdapter01.setDao(dao);
-
-                    //Refresh the list view.
-                    listAdapter01.notifyDataSetChanged();
-
-                    //Toast.makeText(getActivity(),
-                    Toast.makeText(Contextor.getInstance().getContext(),
-                            dao.getData().get(0).getCaption(),
-                            Toast.LENGTH_LONG)
-                            .show();
-                } else {
-                    try {
-                        Toast.makeText(Contextor.getInstance().getContext(),
-                                response.errorBody().string(),
-                                Toast.LENGTH_LONG)
-                                .show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            //This maybe the case of server failure.
-            @Override
-            public void onFailure(Call<PhotoItemCollectionDao> call,
-                                  Throwable t) {
-               Toast.makeText(Contextor.getInstance().getContext(),
-                        t.toString(),
-                        Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+    private void loadMoreData() {
+        if (isLoadingMore) {
+            return; //Do nothing}
+        }
+        isLoadingMore = true; //Prevent reloading data more.
+        int minId = photoListManager.getMinimumId();
+        Call<PhotoItemCollectionDao> call = HttpManager
+                .getInstance()
+                .getService()
+                .loadPhotoListBeforeId(minId);
+        call.enqueue(new PhotoListLoadCallBack(PhotoListLoadCallBack.MODE_LOAD_MORE));
     }
 
     @Override
@@ -143,5 +272,19 @@ public class MainFragment extends Fragment {
         if (savedInstanceState != null) {
             // Restore Instance State here
         }
+    }
+
+    public void showButtonNewPhotos() {
+        buttonNewPhotos01.setVisibility(View.VISIBLE);
+        Animation anim = AnimationUtils.loadAnimation(
+                Contextor.getInstance().getContext(), R.anim.zoom_fade_in);
+        buttonNewPhotos01.startAnimation(anim);
+    }
+
+    public void hideButtonNewPhotos() {
+        buttonNewPhotos01.setVisibility(View.GONE);
+        Animation anim = AnimationUtils.loadAnimation(
+                Contextor.getInstance().getContext(), R.anim.zoom_fade_out);
+        buttonNewPhotos01.startAnimation(anim);
     }
 }
