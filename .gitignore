@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.iml
 .gradle
 /local.properties
@@ -6,3 +7,7 @@
 .DS_Store
 /build
 /captures
+||||||| merged common ancestors
+=======
+/build
+>>>>>>> 51d0e6ba0b9c1f43ea80c9e487b635da32335067
