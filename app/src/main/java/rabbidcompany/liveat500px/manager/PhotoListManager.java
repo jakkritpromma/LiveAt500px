@@ -1,6 +1,7 @@
 package rabbidcompany.liveat500px.manager;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
@@ -113,4 +114,16 @@ public class PhotoListManager {
         }
         return dao.getData().size();
     }
+
+    //The following methods are for simplicity.
+    public Bundle onSaveInstanceState(){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("dao", dao); //Put a parcel inside a bundle.
+        return bundle;
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        dao = savedInstanceState.getParcelable("dao");
+    }
+
 }

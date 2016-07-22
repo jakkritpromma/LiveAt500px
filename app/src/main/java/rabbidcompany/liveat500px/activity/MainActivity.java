@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout01,
                 R.string.open_drawer,
                 R.string.close_drawer);
-        drawerLayout01.setDrawerListener(actionBarDrawerToggle01);
+        drawerLayout01.addDrawerListener(actionBarDrawerToggle01);
         getSupportActionBar().setHomeButtonEnabled(true); //Enable the home button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Go back a single level.
     }
