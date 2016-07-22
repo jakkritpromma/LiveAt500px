@@ -12,6 +12,7 @@ import rabbidcompany.liveat500px.PhotoListItem;
 import rabbidcompany.liveat500px.R;
 import rabbidcompany.liveat500px.dao.PhotoItemCollectionDao;
 import rabbidcompany.liveat500px.dao.PhotoItemDao;
+import rabbidcompany.liveat500px.datatype.MutableInteger;
 import rabbidcompany.liveat500px.manager.PhotoListManager;
 
 /**
@@ -22,7 +23,11 @@ import rabbidcompany.liveat500px.manager.PhotoListManager;
 public class PhotoListAdapter extends BaseAdapter {
 
     PhotoItemCollectionDao dao; //Do not use a singleton dao anymore.
-    int lastPosition = -1;
+    MutableInteger lastPositionInteger;
+
+    public PhotoListAdapter(MutableInteger lastPositionInteger) {
+        this.lastPositionInteger = lastPositionInteger;
+    }
 
     public void setDao(PhotoItemCollectionDao dao) {
         this.dao = dao;
@@ -120,13 +125,12 @@ public class PhotoListAdapter extends BaseAdapter {
     //convertView is a created and unused convertView(s).
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(position == getCount() -1){
+        if (position == getCount() - 1) {
             //Progress Bar
             ProgressBar item;
-            if(convertView != null){
+            if (convertView != null) {
                 item = (ProgressBar) convertView;
-            }
-            else{
+            } else {
                 item = new ProgressBar(parent.getContext());
             }
             return item;
@@ -157,18 +161,21 @@ public class PhotoListAdapter extends BaseAdapter {
         }
         lastPosition = position;*/
 
-        if(position > lastPosition){
+        //if (position > lastPosition)
+        if (position > lastPositionInteger.getValue()) {
             Animation anim = AnimationUtils.loadAnimation(parent.getContext(), R.anim.up_from_button);
             item.startAnimation(anim);
-            lastPosition = position;
+            //lastPosition = position;
+            lastPositionInteger.setValue(position);
         }
 
         //return null;
         return item;
     }
 
-    public void increaseLastPosition (int amount){
-        lastPosition += amount;
+    public void increaseLastPosition(int amount) {
+        //lastPosition += amount;
+        lastPositionInteger.setValue(lastPositionInteger.getValue() + amount);
     }
 
 }

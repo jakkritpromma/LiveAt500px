@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
@@ -5,3 +6,13 @@
     <mapping directory="$PROJECT_DIR$/TheCheeseLibrary" vcs="Git" />
   </component>
 </project>
+||||||| merged common ancestors
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+  </component>
+</project>
+
+>>>>>>> 51d0e6ba0b9c1f43ea80c9e487b635da32335067
