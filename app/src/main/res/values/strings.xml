@@ -7,4 +7,7 @@
     <string name="description_description">Description Description Description
     Description Description Description Description Description Description</string>
     <string name="new_photos">New Photos</string>
+    <string name="simple_button">Simple Button</string>
+    <string name="setting_item">Setting</string>
+    <string name="share_item">Share</string>
 </resources>

@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Sample Button"
-            android:text="Sample Button" />
+            android:text="@string/simple_button" />
 
     </LinearLayout>
 

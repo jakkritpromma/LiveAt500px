@@ -1,6 +1,7 @@
 package rabbidcompany.liveat500px.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -14,10 +15,13 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import rabbidcompany.liveat500px.PhotoListItem;
 import rabbidcompany.liveat500px.R;
+import rabbidcompany.liveat500px.dao.PhotoItemDao;
 import rabbidcompany.liveat500px.fragment.MainFragment;
+import rabbidcompany.liveat500px.fragment.MoreInfoFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainFragment.FragmentListener {
 
     DrawerLayout drawerLayout01;
     ActionBarDrawerToggle actionBarDrawerToggle01; //This is a hamburger button.
@@ -72,5 +76,25 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPhotoItemClicked(PhotoItemDao dao) {
+        //This code is used because 600dp maybe changed someday.
+        FrameLayout moreInfoContainer = (FrameLayout) findViewById(R.id.MoreInfoContainerID01);
+
+        if(moreInfoContainer == null){
+            //Mobile Case
+            Intent intent = new Intent(MainActivity.this,
+                    MoreInfoActivity.class);
+            intent.putExtra("dao", dao);
+            startActivity(intent);
+        }
+        else{
+            //Tablet Case
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.MoreInfoContainerID01, MoreInfoFragment.newInstance(dao))
+                            .commit();
+        }
     }
 }

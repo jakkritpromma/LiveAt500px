@@ -1,9 +1,12 @@
 <resources>
-    <string name="sample_button">Sample Button</string>
+    <string name="sample_button">ปุ่มตัวอย่าง</string>
     <string name="name_name">ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ
     ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ
     ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ ชื่อ</string>
     <string name="description_description">รายละเอียด รายละเอียด รายละเอียด รายละเอียด รายละเอียด
     รายละเอียด รายละเอียด รายละเอียด รายละเอียด รายละเอียด รายละเอียด รายละเอียด รายละเอียด</string>
     <string name="new_photos">รูปถ่ายใหม่</string>
+    <string name="simple_button">ปุ่มอย่างง่าย</string>
+    <string name="setting_item">การตั้งค่า</string>
+    <string name="share_item">แบ่งปัน</string>
 </resources>
