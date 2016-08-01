@@ -1,18 +1,20 @@
 package rabbidcompany.liveat500px.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,10 +22,13 @@ import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 
 import java.io.IOException;
 
+import rabbidcompany.liveat500px.PhotoListItem;
 import rabbidcompany.liveat500px.R;
 import rabbidcompany.liveat500px.activity.MainActivity;
+import rabbidcompany.liveat500px.activity.MoreInfoActivity;
 import rabbidcompany.liveat500px.adapter.PhotoListAdapter;
 import rabbidcompany.liveat500px.dao.PhotoItemCollectionDao;
+import rabbidcompany.liveat500px.dao.PhotoItemDao;
 import rabbidcompany.liveat500px.datatype.MutableInteger;
 import rabbidcompany.liveat500px.manager.PhotoListManager;
 import rabbidcompany.liveat500px.manager.http.HttpManager;
@@ -39,6 +44,10 @@ public class MainFragment extends Fragment {
     /*************************************************************
      * Variables
      ***********************************************************/
+    public interface FragmentListener{
+        void onPhotoItemClicked(PhotoItemDao dao);
+    }
+
     ListView listView01; //This is similar to ScrollView, but it saves memory.
     //GridView gridView01;
     PhotoListAdapter listAdapter01; //This is an adapter.
@@ -83,6 +92,32 @@ public class MainFragment extends Fragment {
     private void init(Bundle savedInstanceState) {
         photoListManager = new PhotoListManager();
         lastPositionInteger = new MutableInteger(-1);
+
+        //File dir = getContext().getDir("Hello", Context.MODE_PRIVATE);
+
+        //Get the directory of the cache.
+        /*File dir = getContext().getCacheDir();
+        Log.d("Storage", String.valueOf(dir));
+        File file = new File(dir, "testfile.txt");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write("hello".getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+        //Shared preference
+        SharedPreferences prefs = getContext().getSharedPreferences("dummy", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        //Write data here.
+        /*editor.putString("Hello", "World"); //"Hello" is the key. "World" is the value.
+        editor.apply();*/
+
+        //Read data here.
+        String value = prefs.getString("Hello", null);
     }
 
     private void initInstances(View rootView, Bundle savedInstanceState) {
@@ -94,6 +129,8 @@ public class MainFragment extends Fragment {
         listAdapter01 = new PhotoListAdapter(lastPositionInteger);
         listAdapter01.setDao(photoListManager.getDao()); //Set dao for this listAdapter01
         listView01.setAdapter(listAdapter01); //Bind the view and adapter together.
+
+        listView01.setOnItemClickListener(listViewItemClickListener);
          /*
         gridView01 = (GridView) rootView.findViewById(R.id.GridViewID01);
         listAdapter01 = new PhotoListAdapter();
@@ -259,6 +296,30 @@ public class MainFragment extends Fragment {
                         loadMoreData();
                     }
                 }
+            }
+        }
+    };
+
+    final AdapterView.OnItemClickListener listViewItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //Toast.makeText(getContext(), "Position: " + position, Toast.LENGTH_SHORT).show();
+
+            //This code cannot handle the display on a tablet.
+            //Intent intent = new Intent(getContext(), MoreInfoActivity.class);
+            //startActivity(intent);
+
+            //Then, send a signal to the activity.
+
+            //Solution 1: This is not suggested.
+            //MainActivity activity = (MainActivity) getActivity();
+            //activity.onItemClick
+
+            //Solution 2: suggested by Google
+            if(position < photoListManager.getCount()) {
+                PhotoItemDao dao = photoListManager.getDao().getData().get(position);
+                FragmentListener listener = (FragmentListener) getActivity();
+                listener.onPhotoItemClicked(dao);
             }
         }
     };
