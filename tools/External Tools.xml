@@ -3,7 +3,7 @@
     <exec>
       <option name="COMMAND" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Desktop/AndroidProjects/IOIO-AOA-Application/app/mytools" />
     </exec>
   </tool>
 </toolSet>
